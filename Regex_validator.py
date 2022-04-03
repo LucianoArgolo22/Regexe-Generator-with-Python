@@ -9,9 +9,22 @@ Página para validación de Regex: https://regex101.com/
 """
 
 
+
 #%%
+#Ejemplo con librería re de Python
 import re 
 
+lista = ["hola","12","caramelos"]
+
+pattern = '[a-z]+'
+
+for valor in lista:
+    print(re.findall(pattern, valor))
+
+
+
+#%%
+#Ejemplo con RegexGenerator
 def regex(string):
         return RegexGenerator((str(string).strip())).get_regex()
 
@@ -19,29 +32,44 @@ def abrir_archivo(file):
     with open(file, "r") as file:
         return file.readlines()
 
-datos_por_validar = abrir_archivo("datos.txt")
-schema_permitido = abrir_archivo("schema_datos_permitidos.txt")
 
-# %%
-regex_validas = []
+if __name__ == "__main__":
 
-for dato in schema_permitido:
-    regex_validas.append(regex(dato))
+    datos_por_validar = abrir_archivo("datos.txt")
+    schema_permitido = abrir_archivo("schema_datos_permitidos.txt")
 
-#%%
-regex_validas
+    regex_validas = []
 
-#%%
-datos_validados = []
-for dato_v in datos_por_validar:
-    if regex(dato_v) in regex_validas:
-        datos_validados.append(dato_v)
-        
-#%%
+    for dato in schema_permitido:
+        regex_validas.append(regex(dato))
 
-with open("datos_validados", "w") as file:
-    file.write("\n".join(datos_validados))
+    #%%
+    regex_validas
+
+    #%%
+    datos_validados = []
+    for dato_v in datos_por_validar:
+        if regex(dato_v) in regex_validas:
+            datos_validados.append(dato_v)
+            
+    #%%
+
+    with open("datos_validados.txt", "w") as file:
+        file.write("\n".join(datos_validados))
+
+    #%%
+#Ejemplo con RegexGenerator y Pandas
+import pandas as pd
+if __name__ == "__main__":
+    df_datos_a_validar = pd.read_csv("datos.txt")
 
 
-#%%
-regex("36aBRaecadabra")
+    for campo in df_datos_a_validar.columns:
+        df_datos_a_validar[campo + "_REGEX"] = [regex(df_datos_a_validar[campo][i]) for i in range(len(df_datos_a_validar))]
+
+    
+    df_datos_a_validar
+
+
+
+
