@@ -1,0 +1,30 @@
+{
+   "Campo1_Regex": [
+      "\\d{7}",
+      null,
+      null,
+      null,
+      null
+   ],
+   "Campo2_Regex": [
+      "\\d{6}",
+      null,
+      null,
+      null,
+      null
+   ],
+   "Campo3_Regex": [
+      "\\d{2}",
+      "\\d{5}",
+      "\\d{6}",
+      "\\d{3}\\w{1}\\d{3}",
+      null
+   ],
+   "Campo4_Regex": [
+      "\\w{1}\\d{7}",
+      "\\d{8}",
+      "\\d{3}\\w{1}\\d{5}",
+      "[5][!]\\w{1}\\d{7}",
+      "\\w{1}\\d{7}[3]"
+   ]
+}
